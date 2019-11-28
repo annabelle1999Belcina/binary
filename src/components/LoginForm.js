@@ -1,98 +1,101 @@
 import React, { Component } from 'react'
 import '../App.css'
-import { Button, Form, Grid, Card} from 'semantic-ui-react'
+import { Button, Form, Grid, Card } from 'semantic-ui-react'
 import req from "./helper";
+import{LoginService,GetUser} from './helper'
 import { BrowserRouter as Router, Switch, Redirect, Link } from 'react-router-dom';
+import UserFeed from './UserFeed';
+import Message from '../elements/Message'
+import Error from '../elements/Error'
+import { LOGIN_MESSAGE, ERROR_IN_LOGIN } from '../MessageBundle';
 
 
 class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
       password: '',
-      // for Log in,,, partial hard code
-      login: false
+      username: '',
+      error: false,
+      loginSuccess: false,
+      user: []
     }
   }
-  onSubmit = () => {
-    const newUser = {
-      email: this.state.email,
-      password: this.state.password,
+
+  handleOnClick = async e => {
+    console.log("handle click test")
+    const data = {
+      userName: this.state.username
     };
-    req
-      .login(newUser)
-      // console.log(newUser)
-      .then(resp => {
-        console.log(resp);  
-        if (resp.status) {
-          this.setState({ login: true });
-        }
-      })
-      .catch(err => {
-        alert("All field must be required!!!")
-
-      });
-  };
-
-  LoginForm = () => (
     
-    <Card.Group>
-      <Grid.Column>
-        <Form>
-          <Form.Input
-            icon='user'
-            iconPosition='left'
-            label='Username/Email'
-            value = {this.state.username}
-            onChange={e => this.setState({ username: e.target.value })}
-          />
-          <Form.Input
-            icon='lock'
-            iconPosition='left'
-            label='Password'
-            type='password'
-            value = {this.state.password}
-            onChange={e => this.setState({ password: e.target.value })}
-          />
-          <Link to={'/userfeed'}><Button content='Login' onClick={e => this.onSubmit(e)} primary /></Link>
-          <Link to={'/signup'} ><Button color='blue' >Sign Up</Button></Link>
-        </Form>
-      </Grid.Column>
-    </Card.Group>
-  
-  )
-  LoginHandler = (e) => {
-    const { username, password, pass, uname } = this.state;
-    if (username === uname && pass === password) {
-      this.setState({ login: true })
-      console.log(this.state.login)
+    const user = await GetUser(data);
+    console.log("handle click test2")
+    this.setState({user: user.data })
+    console.log(this.state.user);
+  }
+  onSubmit = async e => {
+    e.preventDefault();
+    const data = {
+      userName: this.state.username,
+      password: this.state.password
+    };
+
+    const loginResult = await LoginService(data);
+
+    if (loginResult !== 200) {
+      this.setState({
+        loginSuccess: true,
+        error: false
+      });
     }
     else {
-      this.setState({ login: false })
+      this.setState({
+        error: true,
+        loginSuccess: false,  
+      });
     }
   }
 
   render() {
-    const { login } = this.state;
-    if (login === true) {
-      return (
-        <Router>
-          <Switch>
-            <Redirect to="/signup" />
-          </Switch>
-        </Router>
-        
-      )
-    }
-    else {
+    const { loginSuccess, error } = this.state;
+    if (!loginSuccess) {
       return (
         <div className="container">
-          <div className = "box">
-          <this.LoginForm />
+          <div className="box">
+            <Card.Group>
+              <Grid.Column>
+                <Form>
+                  <Form.Input
+                    icon='user'
+                    iconPosition='left'
+                    label='Username'
+                    value={this.state.username}
+                    onChange={e => this.setState({ username: e.target.value })}
+                  />
+                  <Form.Input
+                    icon='lock'
+                    iconPosition='left'
+                    label='Password'
+                    type='password'
+                    value={this.state.password}
+                    onChange={e => this.setState({ password: e.target.value })}
+                  />
+                  <Button content='Login' onClick={(this.onSubmit)} primary />
+                  <Link to={'/signup'} ><Button color='blue' >Sign Up</Button></Link>
+                </Form>
+              </Grid.Column>
+            </Card.Group>
+            
           </div>
+          
         </div>
       )
+    }
+    else if (loginSuccess){
+      return (
+        <UserFeed user={this.state.user}></UserFeed>   
+      )
+      
     }
   }
 }
