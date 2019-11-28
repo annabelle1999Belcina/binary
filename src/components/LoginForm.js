@@ -44,14 +44,15 @@ class LoginForm extends Component {
 
     if (loginResult !== 200) {
       this.setState({
-        loginSuccess: true,
-        error: false
+        error: true,
+        loginSuccess: false,
+        
       });
     }
     else {
       this.setState({
-        error: true,
-        loginSuccess: false,  
+        loginSuccess: true,
+        error: false  
       });
     }
   }
@@ -80,7 +81,7 @@ class LoginForm extends Component {
                     value={this.state.password}
                     onChange={e => this.setState({ password: e.target.value })}
                   />
-                  <Button content='Login' onClick={(this.onSubmit)} primary />
+                  <Button content='Login' onClick={(this.onSubmit, this.handleOnClick)} primary />
                   <Link to={'/signup'} ><Button color='blue' >Sign Up</Button></Link>
                 </Form>
               </Grid.Column>
