@@ -4,7 +4,6 @@ import LoginForm from './components/LoginForm';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import UserFeed from './components/UserFeed';
 import SignUp from './components/SignUp';
-import Side from './components/Side';
 import Profile from './components/Profile';
 class App extends Component {
   render() {

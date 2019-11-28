@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import '../App.css'
 import { Button, Header } from 'semantic-ui-react'
 import { Dropdown, Menu } from 'semantic-ui-react'
-import { BrowserRouter as Link,Route,Router,Switch } from 'react-router-dom';
-import Profile from './Profile';
+import { BrowserRouter as Link} from 'react-router-dom';
+
 
 
 

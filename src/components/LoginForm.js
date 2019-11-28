@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import '../App.css'
 import { Button, Form, Grid, Card } from 'semantic-ui-react'
-import req from "./helper";
-import{LoginService,GetUser} from './helper'
-import { BrowserRouter as Router, Switch, Redirect, Link } from 'react-router-dom';
+
+import { LoginService, GetUser } from './helper'
+import { BrowserRouter as Link } from 'react-router-dom';
 import UserFeed from './UserFeed';
 import Message from '../elements/Message'
 import Error from '../elements/Error'
@@ -27,10 +27,10 @@ class LoginForm extends Component {
     const data = {
       userName: this.state.username
     };
-    
+
     const user = await GetUser(data);
     console.log("handle click test2")
-    this.setState({user: user.data })
+    this.setState({ user: user.data })
     console.log(this.state.user);
   }
   onSubmit = async e => {
@@ -44,15 +44,14 @@ class LoginForm extends Component {
 
     if (loginResult !== 200) {
       this.setState({
-        error: true,
-        loginSuccess: false,
-        
+        loginSuccess: true,
+        error: false
       });
     }
     else {
       this.setState({
-        loginSuccess: true,
-        error: false  
+        error: true,
+        loginSuccess: false,
       });
     }
   }
@@ -86,17 +85,19 @@ class LoginForm extends Component {
                 </Form>
               </Grid.Column>
             </Card.Group>
-            
+            <div>
+              {loginSuccess && <Message message={LOGIN_MESSAGE} />}
+              {error && <Error message={ERROR_IN_LOGIN} />}
+            </div>
           </div>
-          
+
         </div>
       )
     }
-    else if (loginSuccess){
+    else if (loginSuccess) {
       return (
-        <UserFeed user={this.state.user}></UserFeed>   
+        <UserFeed user={this.state.user}></UserFeed>
       )
-      
     }
   }
 }

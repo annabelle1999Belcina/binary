@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import '../App.css'
 import { Button, Form, Grid, } from 'semantic-ui-react'
-import req from "./helper";
-import { BrowserRouter as Router, Switch, Redirect, Link } from 'react-router-dom';
+// import { BrowserRouter as Link } from 'react-router-dom';
 import { UserRegistration, UsernameValidation } from './helper'
 import LoginForm from './LoginForm';
+import Message from '../elements/Message';
+import Error from '../elements/Error';
+import { REGISTRATION_MESSAGE, ERROR_IN_REGISTRATION } from '../MessageBundle';
 
 class SignUp extends Component {
   constructor(props) {
@@ -119,6 +121,7 @@ class SignUp extends Component {
                   onChange={e => this.setState({ userName: e.target.value })}
                   required
                 />
+                <p>{user_name_taken}</p>
                 <Form.Input
                   icon='mail'
                   iconPosition='left'
@@ -139,16 +142,18 @@ class SignUp extends Component {
                   required
                 />
                 <Button content='Sign Up' type="submit" onClick={this.onSubmit} primary />
-                <div>
+                {/* <div>
                   <div>Already have an account?
                 <Button variant="outlined" color="outlined-primary">
                       <Link to="/login" button>Cancel</Link>
                     </Button>
-                  </div>
+                  </div> */}
 
-                </div>
+                {/* </div> */}
               </Form>
             </Grid.Column>
+            {error && <Error message={ERROR_IN_REGISTRATION} />}
+            {register && <Message message={REGISTRATION_MESSAGE} />}
           </div>
         </div>
       )
