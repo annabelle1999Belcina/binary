@@ -6,7 +6,7 @@ import LoginForm from './LoginForm';
 import Message from '../elements/Message';
 import Error from '../elements/Error';
 import { REGISTRATION_MESSAGE, ERROR_IN_REGISTRATION } from '../MessageBundle';
-import { BrowserRouter as Link } from 'react-router-dom';
+// import { BrowserRouter as Link } from 'react-router-dom';
 
 
 class SignUp extends Component {

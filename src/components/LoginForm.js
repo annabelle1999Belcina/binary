@@ -76,7 +76,7 @@ class LoginForm extends Component {
     
     const { loginSuccess, error } = this.state;
     if(this.state.toSignUp === true){
-      return <Redirect to="/signup" />;
+      return <Redirect to="/signup"/>;
     }
     if (!loginSuccess) {
       return (
