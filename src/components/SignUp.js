@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import '../App.css'
 import { Button, Form, Grid, } from 'semantic-ui-react'
-import { BrowserRouter as Link } from 'react-router-dom';
 import { UserRegistration, UsernameValidation } from './helper'
 import LoginForm from './LoginForm';
 import Message from '../elements/Message';
 import Error from '../elements/Error';
 import { REGISTRATION_MESSAGE, ERROR_IN_REGISTRATION } from '../MessageBundle';
-import SearchAppBar from './AppBar';
+import { BrowserRouter as Link } from 'react-router-dom';
+
 
 class SignUp extends Component {
   constructor(props) {
@@ -145,8 +145,6 @@ class SignUp extends Component {
                   required
                 />
                 <Button content='Sign Up'  type="submit" onClick={this.onSubmit} primary />
-                
-                
               </Form>
               <br></br>
             </Grid.Column>

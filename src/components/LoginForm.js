@@ -3,15 +3,15 @@ import '../App.css'
 import { Button, Form, Grid, Card } from 'semantic-ui-react'
 
 import { LoginService, GetUser } from './helper'
-import { BrowserRouter as Link,Redirect , Switch, Route, } from 'react-router-dom';
+import { BrowserRouter as Redirect } from 'react-router-dom';
 import UserFeed from './UserFeed';
 import Message from '../elements/Message'
 import Error from '../elements/Error'
 import { LOGIN_MESSAGE, ERROR_IN_LOGIN } from '../MessageBundle';
-import SignUp from './SignUp';
-import axios from 'axios';
-import SearchAppBar from './AppBar';
-const base = 'http://localhost:4000';
+// import SignUp from './SignUp';
+// import axios from 'axios';
+// import SearchAppBar from './AppBar';
+// const base = 'http://localhost:4000';
 
 
 

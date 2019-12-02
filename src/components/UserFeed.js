@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Card, Image } from 'semantic-ui-react'
-import HeaderMain from './Header'
-import SearchAppBar from './AppBar';
+import Header from './Header';
 
 
 class UserFeed extends Component {
@@ -164,7 +163,7 @@ class UserFeed extends Component {
     return (
       <div>
         <div className = "feed">
-          <SearchAppBar />
+          <Header />
         </div>
         <this.CardExampleGroups />
 

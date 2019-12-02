@@ -20,6 +20,12 @@
   position: sticky;
   float:right;
 }
+.boxPost{
+  background-color:antiquewhite;
+  position: sticky;
+  padding: 3%; 
+  margin-top: 5%
+}
 .boxsign{
   background-image:linear-gradient(rgb(255, 102, 0), orange);
   padding: 40px 100px;

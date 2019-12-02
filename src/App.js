@@ -14,7 +14,7 @@ class App extends Component {
             <Route exact path="/userfeed" component={UserFeed} />
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/login" component={LoginForm} />
-            <Route exact path="/profile" component={Profile} />
+            <Route exact path="/account" component={Profile} />
             <Redirect from ="/" to ="/login"> </Redirect>
           </Switch>
         </Router>
