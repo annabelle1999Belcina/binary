@@ -3,11 +3,16 @@ import '../App.css'
 import { Button, Form, Grid, Card } from 'semantic-ui-react'
 
 import { LoginService, GetUser } from './helper'
-import { BrowserRouter as Link } from 'react-router-dom';
+import { BrowserRouter as Link,Redirect , Switch, Route, } from 'react-router-dom';
 import UserFeed from './UserFeed';
 import Message from '../elements/Message'
 import Error from '../elements/Error'
 import { LOGIN_MESSAGE, ERROR_IN_LOGIN } from '../MessageBundle';
+import SignUp from './SignUp';
+import axios from 'axios';
+import SearchAppBar from './AppBar';
+const base = 'http://localhost:4000';
+
 
 
 class LoginForm extends Component {
@@ -15,17 +20,18 @@ class LoginForm extends Component {
     super(props);
     this.state = {
       password: '',
-      username: '',
+      userName: '',
       error: false,
       loginSuccess: false,
-      user: []
+      user: [],
+      toSignUp:false
     }
   }
 
   handleOnClick = async e => {
     console.log("handle click test")
     const data = {
-      userName: this.state.username
+      userName: this.state.userName
     };
 
     const user = await GetUser(data);
@@ -36,28 +42,42 @@ class LoginForm extends Component {
   onSubmit = async e => {
     e.preventDefault();
     const data = {
-      userName: this.state.username,
+      userName: this.state.userName,
       password: this.state.password
     };
 
     const loginResult = await LoginService(data);
+    const user = await GetUser(data);
+    console.log("handle click test2")
+    this.setState({ user: user.data })
+    console.log(this.state.user);
 
     if (loginResult !== 200) {
-      this.setState({
-        loginSuccess: true,
-        error: false
-      });
-    }
-    else {
       this.setState({
         error: true,
         loginSuccess: false,
       });
     }
+    else {
+      this.setState({
+        loginSuccess: true,
+        error: false
+        
+      });
+    }
+  }
+
+  signUpClick = (e) =>{
+    this.setState({ toSignUp: true });
+    
   }
 
   render() {
+    
     const { loginSuccess, error } = this.state;
+    if(this.state.toSignUp === true){
+      return <Redirect to="/signup" />;
+    }
     if (!loginSuccess) {
       return (
         <div className="container">
@@ -69,8 +89,8 @@ class LoginForm extends Component {
                     icon='user'
                     iconPosition='left'
                     label='Username'
-                    value={this.state.username}
-                    onChange={e => this.setState({ username: e.target.value })}
+                    value={this.state.userName}
+                    onChange={e => this.setState({ userName: e.target.value })}
                   />
                   <Form.Input
                     icon='lock'
@@ -80,8 +100,10 @@ class LoginForm extends Component {
                     value={this.state.password}
                     onChange={e => this.setState({ password: e.target.value })}
                   />
-                  <Button content='Login' onClick={(this.onSubmit, this.handleOnClick)} primary />
-                  <Link to={'/signup'} ><Button color='blue' >Sign Up</Button></Link>
+                  <Button content='Login' onClick={(this.onSubmit)} primary />
+                  <Button color='blue' onClick = {(e)=>this.signUpClick(e)}>
+                    Sign Up
+                  </Button>
                 </Form>
               </Grid.Column>
             </Card.Group>

@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import '../App.css'
 import { Button, Form, Grid, } from 'semantic-ui-react'
-// import { BrowserRouter as Link } from 'react-router-dom';
+import { BrowserRouter as Link } from 'react-router-dom';
 import { UserRegistration, UsernameValidation } from './helper'
 import LoginForm from './LoginForm';
 import Message from '../elements/Message';
 import Error from '../elements/Error';
 import { REGISTRATION_MESSAGE, ERROR_IN_REGISTRATION } from '../MessageBundle';
+import SearchAppBar from './AppBar';
 
 class SignUp extends Component {
   constructor(props) {
@@ -21,7 +22,12 @@ class SignUp extends Component {
       userName: '',
       password: '',
       verifypass: '',
+      toLogin:false
     }
+  }
+
+  logInClick =(e)=>{
+    this.setState({toLogin:true})
   }
 
   onChange = e => {
@@ -74,19 +80,16 @@ class SignUp extends Component {
       });
     }
   };
-  // SignUpForm = () => (
-
-
-  // )
 
   render() {
+  
     const { register, error, user_name_taken } = this.state;
     if (!register) {
       return (
         <div className="container">
           <div className="boxsign">
             <Grid.Column>
-              <Form noValidate onSubmit={this.onSubmit}>
+              <Form >
                 <Form.Input
                   icon='user'
                   iconPosition='left'
@@ -141,16 +144,11 @@ class SignUp extends Component {
                   onChange={e => this.setState({ password: e.target.value })}
                   required
                 />
-                <Button content='Sign Up' type="submit" onClick={this.onSubmit} primary />
-                {/* <div>
-                  <div>Already have an account?
-                <Button variant="outlined" color="outlined-primary">
-                      <Link to="/login" button>Cancel</Link>
-                    </Button>
-                  </div> */}
-
-                {/* </div> */}
+                <Button content='Sign Up'  type="submit" onClick={this.onSubmit} primary />
+                
+                
               </Form>
+              <br></br>
             </Grid.Column>
             {error && <Error message={ERROR_IN_REGISTRATION} />}
             {register && <Message message={REGISTRATION_MESSAGE} />}
@@ -159,7 +157,7 @@ class SignUp extends Component {
       )
     } else {
       return (
-        <LoginForm />
+        <LoginForm/>
       );
     }
   }
