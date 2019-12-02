@@ -162,6 +162,7 @@ export default function SearchAppBar() {
             <ListItem button key={text}>
               <ListItemIcon>{index % 2 === 0 ? <HomeIcon /> : <MailIcon />}</ListItemIcon>
               <ListItemText primary={text} />
+              
             </ListItem>
           ))}
         </List>
