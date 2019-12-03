@@ -4,6 +4,13 @@ import Header from './Header';
 
 
 class UserFeed extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      user: this.props.user,
+      
+    }
+  }
 
   CardExampleGroups = () => (
     <Card.Group style={{ marginLeft: '5%', marginRight: '3%' }}>
@@ -151,6 +158,13 @@ class UserFeed extends Component {
           </Button>
           </div>
         </Card.Content>
+        <Card>
+          {/* <Card.Description
+            value = {this.state.user.userName}
+          >
+
+          </Card.Description> */}
+        </Card>
       </Card>
 
     </Card.Group>
@@ -160,12 +174,14 @@ class UserFeed extends Component {
 
 
   render() {
+    console.log(this.state.user)
     return (
       <div>
         <div className = "feed">
           <Header />
         </div>
         <this.CardExampleGroups />
+        
 
       </div>
     )

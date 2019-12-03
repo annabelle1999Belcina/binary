@@ -22,12 +22,12 @@ class SignUp extends Component {
       userName: '',
       password: '',
       verifypass: '',
-      toLogin:false
+      toLogin: false
     }
   }
 
-  logInClick =(e)=>{
-    this.setState({toLogin:true})
+  logInClick = (e) => {
+    this.setState({ toLogin: true })
   }
 
   onChange = e => {
@@ -81,8 +81,23 @@ class SignUp extends Component {
     }
   };
 
-  render() {
-  
+  loginClick = (e) => {
+    e.preventDefault();
+    console.log("signUp")
+    this.setState({ toLogin: true }, () => { console.log("signUp33", this.state.toLogin) });
+
+
+  }
+
+  login = () => {
+    if (this.state.toLogin) {
+      console.log('Signup true');
+      this.setState({ toLogin: true }, () => { this.props.history.push("/login"); })
+
+    }
+  }
+
+  signUp = () => {
     const { register, error, user_name_taken } = this.state;
     if (!register) {
       return (
@@ -144,7 +159,8 @@ class SignUp extends Component {
                   onChange={e => this.setState({ password: e.target.value })}
                   required
                 />
-                <Button content='Sign Up'  type="submit" onClick={this.onSubmit} primary />
+                <Button content='Sign Up' type="submit" onClick={this.onSubmit} primary />
+                <Button content='Login' onClick={(e) => { this.loginClick(e) }} primary />
               </Form>
               <br></br>
             </Grid.Column>
@@ -155,12 +171,17 @@ class SignUp extends Component {
       )
     } else {
       return (
-        <LoginForm/>
+        <LoginForm />
       );
     }
   }
 
-
-
+  render() {
+    return (
+      <div>
+        {this.state.toLogin ? this.login() : this.signUp()}
+      </div>
+    )
+  }
 }
 export default SignUp;

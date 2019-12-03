@@ -8,6 +8,7 @@ import UserFeed from './UserFeed';
 import Message from '../elements/Message'
 import Error from '../elements/Error'
 import { LOGIN_MESSAGE, ERROR_IN_LOGIN } from '../MessageBundle';
+import { Link } from '@material-ui/core';
 // import SignUp from './SignUp';
 // import axios from 'axios';
 // import SearchAppBar from './AppBar';
@@ -24,7 +25,7 @@ class LoginForm extends Component {
       error: false,
       loginSuccess: false,
       user: [],
-      toSignUp:false
+      toSignUp: false
     }
   }
 
@@ -40,6 +41,7 @@ class LoginForm extends Component {
     console.log(this.state.user);
   }
   onSubmit = async e => {
+    console.log('sulod')
     e.preventDefault();
     const data = {
       userName: this.state.userName,
@@ -62,23 +64,30 @@ class LoginForm extends Component {
       this.setState({
         loginSuccess: true,
         error: false
-        
+
       });
     }
   }
 
-  signUpClick = (e) =>{
-    this.setState({ toSignUp: true });
-    
+  signUpClick = (e) => {
+    e.preventDefault();
+    console.log("signUp")
+    this.setState({ toSignUp: true }, () => { console.log("signUp33", this.state.toSignUp) });
+
+
+  }
+  signUp = () => {
+    if (this.state.toSignUp) {
+      console.log('Signup true');
+      this.setState({toSignUp:true}, ()=>{this.props.history.push("/signup");})
+      
+    }
   }
 
-  render() {
-    
+  login = () => {
     const { loginSuccess, error } = this.state;
-    if(this.state.toSignUp === true){
-      return <Redirect to="/signup"/>;
-    }
     if (!loginSuccess) {
+      console.log('Signup false');
       return (
         <div className="container">
           <div className="box">
@@ -100,8 +109,8 @@ class LoginForm extends Component {
                     value={this.state.password}
                     onChange={e => this.setState({ password: e.target.value })}
                   />
-                  <Button content='Login' onClick={(this.onSubmit)} primary />
-                  <Button color='blue' onClick = {(e)=>this.signUpClick(e)}>
+                  <Button content='Login' onClick={(e) => { this.onSubmit(e) }} primary />
+                  <Button color='blue' onClick={e => { this.signUpClick(e) }}>
                     Sign Up
                   </Button>
                 </Form>
@@ -112,7 +121,6 @@ class LoginForm extends Component {
               {error && <Error message={ERROR_IN_LOGIN} />}
             </div>
           </div>
-
         </div>
       )
     }
@@ -121,6 +129,15 @@ class LoginForm extends Component {
         <UserFeed user={this.state.user}></UserFeed>
       )
     }
+  }
+
+  render() {
+    // { ghfgh ? ygiyg : jgtytiy }
+    return (
+      <div>
+        {this.state.toSignUp ? this.signUp() : this.login()}
+      </div>
+    )
   }
 }
 export default LoginForm
