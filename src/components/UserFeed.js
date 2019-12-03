@@ -158,31 +158,26 @@ class UserFeed extends Component {
           </Button>
           </div>
         </Card.Content>
-        <Card>
-          {/* <Card.Description
-            value = {this.state.user.userName}
-          >
-
-          </Card.Description> */}
-        </Card>
+        
       </Card>
+      <Card>
+          <input type = "text" value={this.state.userName} placeholder= {this.state.userName}>
+
+          </input>
+          
+        </Card>
 
     </Card.Group>
   )
 
-
-
-
   render() {
-    console.log(this.state.user)
+    // console.log(this.state.user.userName)
     return (
       <div>
         <div className = "feed">
           <Header />
         </div>
         <this.CardExampleGroups />
-        
-
       </div>
     )
   }

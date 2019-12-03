@@ -7,9 +7,7 @@ export const UserRegistration = data => {
 	const password = data.password;
 	const salt = bcrypt.genSaltSync(10);
 	const hash = bcrypt.hashSync(password, salt);
-
 	data["password"] = hash;
-
 	return axios.post(`${base}/user/create`, data)
 		.then(res => res.status)
 }
@@ -29,19 +27,19 @@ export const GetUser = data => (
 		.then(res => res)
 )
 
-function addUser(body) {
-    return new Promise((resolve, reject)=>{
-        axios.post(`${base}/user/create`, body).then(resp => {
-            resolve(resp)
-        }).catch(err => {
-            reject(err)
-            console.log("ghfjdkls")
-        })
-    })
-}
+// function addUser(body) {
+//     return new Promise((resolve, reject)=>{
+//         axios.post(`${base}/user/create`, body).then(resp => {
+//             resolve(resp)
+//         }).catch(err => {
+//             reject(err)
+//             console.log("ghfjdkls")
+//         })
+//     })
+// }
 
 
 export default {
-    addUser,
+    // addUser,
 
 }

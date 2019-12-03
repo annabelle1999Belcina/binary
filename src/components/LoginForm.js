@@ -3,12 +3,12 @@ import '../App.css'
 import { Button, Form, Grid, Card } from 'semantic-ui-react'
 
 import { LoginService, GetUser } from './helper'
-import { BrowserRouter as Redirect } from 'react-router-dom';
+// import { BrowserRouter as Redirect } from 'react-router-dom';
 import UserFeed from './UserFeed';
 import Message from '../elements/Message'
 import Error from '../elements/Error'
 import { LOGIN_MESSAGE, ERROR_IN_LOGIN } from '../MessageBundle';
-import { Link } from '@material-ui/core';
+// import { Link } from '@material-ui/core';
 // import SignUp from './SignUp';
 // import axios from 'axios';
 // import SearchAppBar from './AppBar';
