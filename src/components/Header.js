@@ -103,10 +103,10 @@ function HomeIcon(props) {
 }
 
 export default function Header() {
+  
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [account, userfeed, logout] = React.useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -117,24 +117,8 @@ export default function Header() {
   };
 
 
-  if (account === true) {
-    return (
-      <Redirect to="/account" />
-    )
-  }
-  if (userfeed === true) {
-    return (
-      <Redirect to="/userfeed" />
-    )
-  }
-  if (logout === true) {
-    return (
-      <Redirect to="/login" />
-    )
-  }
+
   return (
-
-
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
