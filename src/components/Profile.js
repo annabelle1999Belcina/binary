@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, Input, Card } from 'semantic-ui-react'
+import { Form, Input, Card,Button } from 'semantic-ui-react'
 // import PostHeader from './PostHeader'
 import '../App.css';
 import Header from './Header';
@@ -10,24 +10,23 @@ class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            user: this.props.user,
             DishName: "",
             ListDescription: [],
             ListIngredient: [],
             ListProcedure: []
         }
-
     }
+    
 
     DishName = (e) => {
-
+        console.log(this.state.user)
     }
 
     render() {
-
-
-
         return (
-            <div><Header />
+            <div>
+                <Header />
                 <div className="boxPost">
                     <Card.Group >
                         <Form >
@@ -97,20 +96,20 @@ class Profile extends Component {
                                     style={{
                                         marginTop: -3,
                                         fontSize: 20,
-                                    }} >
+                                    }} 
+                                   >
                                     POST
                                 </Form.Button>
-                                <Form.Button
+                            </Form.Group>
+                        </Form>
+                        <Button
                                     style={{
                                         marginTop: -3,
-                                        fontSize: 20
-                                    }} >CANCEL</Form.Button>
-                            </Form.Group>
-
-                            {/* </Container> */}
-                            {/* </div> */}
-
-                        </Form>
+                                        fontSize: 20,
+                                    }} 
+                                    onClick={e=>{ this.DishName(e) }}>
+                                    POST
+                                </Button>
                     </Card.Group>
                 </div>
             </div>

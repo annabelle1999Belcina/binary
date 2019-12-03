@@ -158,15 +158,11 @@ class UserFeed extends Component {
           </Button>
           </div>
         </Card.Content>
-        
       </Card>
       <Card>
           <input type = "text" value={this.state.userName} placeholder= {this.state.userName}>
-
           </input>
-          
         </Card>
-
     </Card.Group>
   )
 

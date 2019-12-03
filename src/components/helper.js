@@ -24,7 +24,7 @@ export const LoginService = data => (
 
 export const GetUser = data => (
 	axios.get(`${base}/getUser`, data)
-		.then(res => res)
+		.then(res => res.status)
 )
 
 // function addUser(body) {
