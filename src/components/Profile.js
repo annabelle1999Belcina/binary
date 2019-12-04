@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { Form, Input, Card,Button } from 'semantic-ui-react'
+import { Form, Input, Card, Button,Icon } from 'semantic-ui-react'
 // import PostHeader from './PostHeader'
 import '../App.css';
-import Header from './Header';
+import AppBarfile from './AppBarfile';
+import { thisExpression } from '@babel/types';
 
 
 
@@ -11,22 +12,37 @@ class Profile extends Component {
         super(props);
         this.state = {
             user: this.props.user,
-            DishName: "",
-            ListDescription: [],
-            ListIngredient: [],
-            ListProcedure: []
+            posts: [],
+            logout: false
         }
     }
-    
+
+
 
     DishName = (e) => {
         console.log(this.state.user)
     }
 
+    ProfileInfoCard = () => (
+        <Card style={{marginLeft:'2%', marginRight: '100%' }}>
+            <Card.Content>About {this.state.user.firstName} {this.state.user.lastName}</Card.Content>
+            <Card.Content>{this.state.user.gender}</Card.Content>
+            <Card.Content>{this.state.user.userName}</Card.Content>
+            <Card.Content>{this.state.user.email}</Card.Content>
+            <Card.Content>{this.state.user.signUpDate}</Card.Content>
+            
+            <Card.Content extra>
+                <Icon name='user' />4 Friends
+            </Card.Content>
+        </Card>
+
+    )
+
+
     render() {
         return (
             <div>
-                <Header />
+                <AppBarfile user={this.state.user}/>
                 <div className="boxPost">
                     <Card.Group >
                         <Form >
@@ -40,7 +56,7 @@ class Profile extends Component {
                                         marginLeft: 10
                                     }}
                                     value={this.state.DishName}
-                                    OnSubmit
+
 
                                 />
                                 <Form.Input fluid placeholder='Name of your Dishes..'
@@ -96,22 +112,15 @@ class Profile extends Component {
                                     style={{
                                         marginTop: -3,
                                         fontSize: 20,
-                                    }} 
-                                   >
+                                    }}
+                                >
                                     POST
                                 </Form.Button>
                             </Form.Group>
                         </Form>
-                        <Button
-                                    style={{
-                                        marginTop: -3,
-                                        fontSize: 20,
-                                    }} 
-                                    onClick={e=>{ this.DishName(e) }}>
-                                    POST
-                                </Button>
                     </Card.Group>
                 </div>
+                <this.ProfileInfoCard />
             </div>
         );
     }

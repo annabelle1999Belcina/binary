@@ -1,4 +1,4 @@
-
+import React, { Component } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -13,11 +13,12 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
 import Avatar from '@material-ui/core/Avatar';
 import SvgIcon from '@material-ui/core/SvgIcon';
-import React from 'react'
-import { BrowserRouter as Redirect, Link } from 'react-router-dom';
+import { BrowserRouter as Link } from 'react-router-dom';
+import UserFeed from './UserFeed';
 
 
 const drawerWidth = 240;
@@ -25,14 +26,14 @@ const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
-
-
+    
+    
   },
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
-
+      
     }),
   },
   appBarShift: {
@@ -82,29 +83,57 @@ const useStyles = makeStyles(theme => ({
   bigAvatar: {
     width: 60,
     height: 60,
-    marginLeft: "90px"
+    marginLeft:"90px"
   },
-  side: {
-    marginLeft: '90%'
+  side:{
+      marginLeft: '90%'
   },
-  h1: {
-    textAlign: "center"
+  h1:{
+    textAlign:"center"
   }
 }));
 
+export default class AppBarfile extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        setOpen: false,
+        open: false,
+        toFeed:false,
+        user: this.props.user,
+        posts: [],
+        logout: false
+      };
+  }
+
+// HomeIcon = (props) => {
+//     return (
+//       <SvgIcon {...props}>
+//         <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+//       </SvgIcon>
+//     );
+//   }
+
+toUserFeedClick = (e) => {
+  e.preventDefault();
+  console.log("signUp")
+  this.setState({ toFeed: true }, () => { console.log("signUp33", this.state.user) });
 
 
-function HomeIcon(props) {
-  return (
-    <SvgIcon {...props}>
-      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-    </SvgIcon>
-  );
 }
-
-export default function Header() {
+toUserFeed = () => {
+  if (this.state.toSignUp) {
+    console.log('Signup true');
+    this.setState({ toFeed: true }, () => { this.props.history.push("/login"); })
+    // return(
+    //   <UserFeed user={this.state.user}></UserFeed>
+    // )
+  }
+}
   
-  const classes = useStyles();
+
+SearchAppBar = () => {
+    const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -118,7 +147,7 @@ export default function Header() {
 
 
 
-  return (
+ return(
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
@@ -128,43 +157,53 @@ export default function Header() {
         })}
       >
         <Toolbar>
-          <Avatar alt="binary" src="../photos/logo.png" />
+        <Avatar alt="binary" src="../photos/logo.png"/>
 
           <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="end"
             onClick={handleDrawerOpen}
-            className={clsx(open && classes.hide),classes.side}
-    >
+            className={clsx(open && classes.hide), classes.side}
+          >
             <MenuIcon />
           </IconButton>
         </Toolbar>
       </AppBar>
-    <Drawer
-      className={classes.drawer}
-      variant="persistent"
-      anchor="right"
-      open={open}
-      classes={{
-        paper: classes.drawerPaper,
-      }}
-    >
-      <div className={classes.drawerHeader}>
-        <IconButton onClick={handleDrawerClose}>
-          {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-        </IconButton>
-      </div>
-      <Divider />
-      <Avatar alt="Ayane Consunji" src="/photos/sample.png" className={classes.bigAvatar} />
-      <h1 className={classes.h1}>Ayane Consunji</h1>
-      <Divider />
-      <List>
-        <Link to="/account"><ListItemIcon><HomeIcon /><ListItem button style={{ width: 200, height: 40 }} >Account</ListItem></ListItemIcon></Link>
-        <Link to="/userfeed"><ListItemIcon><MailIcon /><ListItem button style={{ width: 200, height: 40 }} >Feed</ListItem></ListItemIcon></Link>
-        <Link to="/login"><ListItemIcon><HomeIcon /><ListItem button style={{ width: 200, height: 40 }} >Log Out</ListItem></ListItemIcon></Link>
-      </List>
-    </Drawer>
-    </div >
-    );
-}
+      <Drawer
+        className={classes.drawer}
+        variant="persistent"
+        anchor="right"
+        open={open}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
+        <div className={classes.drawerHeader}>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          </IconButton>
+        </div>
+        <Divider />
+        <Avatar alt="Ayane Consunji" src="/photos/sample.png" className={classes.bigAvatar} />
+        <h1 className={classes.h1}>Ayane Consunji</h1>
+        <Divider />
+        <List>
+        <ListItemIcon><MailIcon /><ListItem  button style={{ width: 200, height: 40 }} >Account</ListItem></ListItemIcon>
+          <ListItemIcon><MailIcon /><ListItem onClick = {(e)=>this.toUserFeedClick(e)} button style={{ width: 200, height: 40 }} >Feed</ListItem></ListItemIcon>
+          <Link to="/login"><ListItemIcon><MailIcon /><ListItem button style={{ width: 200, height: 40 }} >Log Out</ListItem></ListItemIcon></Link>
+        </List>
+      </Drawer>
+    </div>
+    )
+      }
+          render() {
+            return (
+              <div>
+                {this.state.toFeed ? this.toUserFeed() : <this.SearchAppBar/>}
+                  
+                </div>
+            )
+        }
+    }
+               

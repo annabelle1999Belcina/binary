@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Card, Image } from 'semantic-ui-react'
-import Header from './Header';
+import Header from './AppBarfile';
 
 
 class UserFeed extends Component {
