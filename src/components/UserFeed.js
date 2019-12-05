@@ -20,6 +20,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import TextField from '@material-ui/core/TextField';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -42,7 +43,7 @@ class UserFeed extends Component {
     this.state = {
       posts: [
         {
-          user: [{ first_name: "Developers" }],
+          user: [{ first_name: "Ayane", profile: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQy-0g5Ns0fJvw83Le_1_RnZt8AxqvqYeyNLB0gW_nCwxiJocs6" }],
           title: "Spaghetti",
           description: "This is my first post with more content inside",
           image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRvZYf1rcr0NygtykZZiygTwzbRMbPdCiNJAg78EwZHYoJhqIoi",
@@ -107,8 +108,10 @@ class UserFeed extends Component {
                       <MoreVertIcon />
                     </IconButton>
                   }
-                  title={post.title}
-                  subheader="September 14, 2016"
+                  title={
+                    <Typography component="h3">{post.user.map(data => (data.first_name))} {post.user.map(data => (data.last_name))}</Typography>
+                  }
+                  subheader={post.title}
                 />
                 <CardMedia
                   style={{
@@ -169,8 +172,11 @@ class UserFeed extends Component {
                               <MoreVertIcon />
                             </IconButton>
                           }
-                          title="Shrimp and Chorizo Paella"
-                          subheader="September 14, 2016"
+                          title={
+                            <Typography component="h3">{post.user.map(data => (data.first_name))} {post.user.map(data => (data.last_name))}</Typography>
+                          }
+                          subheader={post.title}
+                          // subheader="September 14, 2016"
                         />
                         <CardMedia
                           style={{
@@ -195,8 +201,43 @@ class UserFeed extends Component {
                           </IconButton>
                           <IconButton aria-label="share">
                           </IconButton>
-
+                          
                         </CardActions>
+                        
+                          {post.comments.map(comment => (
+                            <div>
+                              <CardHeader
+                                avatar={
+                                  <Avatar aria-label={post.user_name}>
+                                    Y
+                                </Avatar>
+
+                                }
+                                title={
+                                  // <Typography>{comment.comment_from.first_name} {comment.comment_from.last_name}</Typography>
+                                  <TextField
+                                  defaultValue="gwapa ko"
+                                  
+                                  InputProps={{
+                                    readOnly: true,
+                                  }}
+                                  variant="filled"
+                                  style={{
+                                    width:340,
+                                    backgroundColor:"#bab0af",
+
+                                  }}
+                                />
+                                }
+                                
+                                
+                              >
+                                
+                              </CardHeader>
+                              <Typography>{comment.comment}</Typography>
+                            </div>
+                          ))}
+                        
 
                         <TextField id="outlined-basic" variant="outlined" style={{
                           width: 300,
@@ -208,7 +249,10 @@ class UserFeed extends Component {
                           marginTop: "9px",
                           marginRight: "10px",
                           marginLeft:"5px"
-                        }}>
+                        }}
+                        onClick={() => {
+                          this.handleComment(post._id)
+                        }}>>
                           Comment
         </Button>
                       </Card>
