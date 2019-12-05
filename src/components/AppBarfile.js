@@ -13,12 +13,10 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
 import Avatar from '@material-ui/core/Avatar';
-import SvgIcon from '@material-ui/core/SvgIcon';
 import { BrowserRouter as Link } from 'react-router-dom';
-import UserFeed from './UserFeed';
+
 
 
 const drawerWidth = 240;
@@ -33,6 +31,7 @@ const useStyles = makeStyles(theme => ({
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
+      
       
     }),
   },
@@ -102,7 +101,8 @@ export default class AppBarfile extends Component {
         toFeed:false,
         user: this.props.user,
         posts: [],
-        logout: false
+        logout: false,
+        logo: "https://mail.google.com/mail/u/0?ui=2&ik=555cf0960f&attid=0.1&permmsgid=msg-f:1648549793929798201&th=16e0d34d9dbaa239&view=att&disp=safe&realattid=f_k28z43pz0"
       };
   }
 
@@ -120,7 +120,7 @@ toUserFeedClick = (e) => {
   this.setState({ toFeed: true }, () => { console.log("signUp33", this.state.user) });
 
 
-}
+} 
 toUserFeed = () => {
   if (this.state.toSignUp) {
     console.log('Signup true');
@@ -155,6 +155,7 @@ SearchAppBar = () => {
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
+        style={{backgroundColor: "orangered"}}
       >
         <Toolbar>
         <Avatar alt="binary" src="../photos/logo.png"/>

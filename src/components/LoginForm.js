@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
 import '../App.css'
 import { Button, Form, Grid, Card } from 'semantic-ui-react'
-
-import { LoginService, GetUser } from './helper'
-// import { BrowserRouter as Redirect } from 'react-router-dom';
-import Profile from './Profile';
 import Message from '../elements/Message'
 import Error from '../elements/Error'
 import { LOGIN_MESSAGE, ERROR_IN_LOGIN } from '../MessageBundle';
@@ -136,8 +132,9 @@ class LoginForm extends Component {
     else if (loginSuccess) {
       console.log("login true");
       return (
-        
-        <UserFeed user={this.state.user}></UserFeed>
+ 
+          <UserFeed user={this.state.user}></UserFeed>
+       
       )
     }
   }

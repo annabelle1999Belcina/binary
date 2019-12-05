@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import { Form, Input, Card, Button, Icon } from 'semantic-ui-react'
+import { Form, Input, Card, Icon } from 'semantic-ui-react'
 // import PostHeader from './PostHeader'
 import '../App.css';
 import AppBarfile from './AppBarfile';
-import { thisExpression } from '@babel/types';
 import axios from 'axios';
 const base = 'http://localhost:4000';
 
