@@ -9,6 +9,7 @@ import Message from '../elements/Message'
 import Error from '../elements/Error'
 import { LOGIN_MESSAGE, ERROR_IN_LOGIN } from '../MessageBundle';
 import axios from 'axios';
+import UserFeed from './UserFeed';
 // import { Link } from '@material-ui/core';
 // import SignUp from './SignUp';
 // import axios from 'axios';
@@ -136,7 +137,7 @@ class LoginForm extends Component {
       console.log("login true");
       return (
         
-        <Profile user={this.state.user}></Profile>
+        <UserFeed user={this.state.user}></UserFeed>
       )
     }
   }

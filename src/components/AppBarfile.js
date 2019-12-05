@@ -191,7 +191,7 @@ SearchAppBar = () => {
         <List>
         <ListItemIcon><MailIcon /><ListItem  button style={{ width: 200, height: 40 }} >Account</ListItem></ListItemIcon>
           <ListItemIcon><MailIcon /><ListItem onClick = {(e)=>this.toUserFeedClick(e)} button style={{ width: 200, height: 40 }} >Feed</ListItem></ListItemIcon>
-          <Link to="/login"><ListItemIcon><MailIcon /><ListItem button style={{ width: 200, height: 40 }} >Log Out</ListItem></ListItemIcon></Link>
+          <ListItemIcon component={Link} to='/login'><MailIcon /><ListItem  button style={{ width: 200, height: 40 }} >Log Out</ListItem></ListItemIcon>
         </List>
       </Drawer>
     </div>
