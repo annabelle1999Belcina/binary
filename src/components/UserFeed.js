@@ -20,7 +20,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import TextField from '@material-ui/core/TextField';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import axios from 'axios'
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -62,7 +62,21 @@ class UserFeed extends Component {
   }
 
 
+  handleComment = id => {
 
+    const data = {
+      comment: this.state.comment,
+      comment_from: this.state.userData
+    }
+    axios.put('http://localhost:4000/to/addComment/' + id, data)
+      .then((res) => {
+        console.log(res.data)
+        console.log('Comment successfully added.')
+        this.setState({ comment: '' })
+      }).catch((error) => {
+        console.log(error)
+      })
+  }
 
 
   CardExampleGroups = () => {
@@ -252,7 +266,7 @@ class UserFeed extends Component {
                         }}
                         onClick={() => {
                           this.handleComment(post._id)
-                        }}>>
+                        }}>
                           Comment
         </Button>
                       </Card>
