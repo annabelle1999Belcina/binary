@@ -31,7 +31,7 @@ class AddPost extends Component {
         // console.log('handle uploading-', this.state.file);
         e.preventDefault();
         var data = new FormData();
-        data.append('userId', this.state.user.userId);
+        data.append('user', this.state.user);
         data.append('foodName', this.state.foodName);
         data.append('description', this.state.description);
         data.append('image', this.state.file);
@@ -139,8 +139,10 @@ class AddPost extends Component {
                                     style={{
                                         fontSize: 20,
                                     }}
-                                    disabled ={this.state.file === "" && this.state.description === ""}
+                                    // this.setState ={this.state.file === "" && this.state.description === ""}
+                                    
                                     onClick={(e) => this._handleSubmit(e)}
+                                    
                                 >
                                     POST
                                 </Form.Button>

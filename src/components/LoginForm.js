@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import '../App.css'
 import { Button, Form, Grid, Card } from 'semantic-ui-react'
-import Message from '../elements/Message'
-import Error from '../elements/Error'
-import { LOGIN_MESSAGE, ERROR_IN_LOGIN } from '../MessageBundle';
 import axios from 'axios';
 import UserFeed from './UserFeed';
 // import { Link } from '@material-ui/core';
@@ -90,7 +87,7 @@ class LoginForm extends Component {
   }
 
   login = () => {
-    const { loginSuccess, error } = this.state;
+    const { loginSuccess } = this.state;
     if (!loginSuccess) {
       console.log('Signup false');
       return (
@@ -122,8 +119,6 @@ class LoginForm extends Component {
               </Grid.Column>
             </Card.Group>
             <div>
-              {loginSuccess && <Message message={LOGIN_MESSAGE} />}
-              {error && <Error message={ERROR_IN_LOGIN} />}
             </div>
           </div>
         </div>
