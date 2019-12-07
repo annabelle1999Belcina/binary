@@ -1,5 +1,16 @@
 import React, { Component } from 'react'
-import { Button, Header, Image, Modal, Card, } from 'semantic-ui-react'
+import { Button, Header, Image, Modal, Card } from 'semantic-ui-react'
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+
+const useStyles = makeStyles(theme => ({
+    root: {
+        '& > *': {
+            margin: theme.spacing(1),
+            width: 200,
+        },
+    },
+}));
 
 class ProfileInfo extends Component {
     constructor(props) {
@@ -27,6 +38,25 @@ class ProfileInfo extends Component {
                             address.
         </p>
                         <p>Is it okay to use this photo?</p>
+                        <form className={useStyles.root} noValidate autoComplete="off">
+                            <TextField id="standard-basic" label="Gender" defaultValue={this.state.user.gender} /><br />
+                            <TextField id="standard-basic" label="Username" defaultValue={this.state.user.userName} /><br />
+                            <TextField id="standard-basic" label="Email" defaultValue={this.state.user.email} /><br />
+                            <TextField id="standard-basic" label="Joined iCook" defaultValue={this.state.user.signUpDate} /><br />
+                            <TextField id="standard-basic" label="Address" /><br />
+                            <TextField id="standard-basic" label="Workplace" /><br />
+                            <TextField id="standard-basic" label="Education" /><br />
+                            <TextField id="standard-basic" label="Relationship" /><br />
+                            <TextField
+                                id="outlined-multiline-static"
+                                label="Bio"
+                                multiline
+                                rows="4"
+                                className={useStyles.textField}
+                                margin="normal"
+                                variant="outlined"
+                            />
+                            </form>
                     </Modal.Description>
                 </Modal.Content>
             </Modal>
