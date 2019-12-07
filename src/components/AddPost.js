@@ -24,6 +24,7 @@ class AddPost extends Component {
             procedure: ""
         }
     }
+    
 
     _handleSubmit(e) {
         // e.preventDefault();
