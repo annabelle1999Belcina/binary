@@ -22,7 +22,12 @@ class SignUp extends Component {
       userName: '',
       password: '',
       verifypass: '',
-      toLogin: false
+      toLogin: false,
+      address: "  ",
+      workPlace:" ",
+      education:" ",
+      relationShip:"  ",
+      bio:" "
     }
   }
 
@@ -56,7 +61,12 @@ class SignUp extends Component {
       gender: this.state.gender,
       userName: this.state.userName,
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
+      address: this.state.address,
+      workPlace:this.state.workPlace,
+      education:this.state.education,
+      relationShip:this.state.relationShip,
+      bio:this.state.bio
     };
 
     const registerStatus = await UserRegistration(data);
