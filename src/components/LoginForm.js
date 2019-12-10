@@ -3,6 +3,9 @@ import '../App.css'
 import { Button, Form, Grid, Card } from 'semantic-ui-react'
 import axios from 'axios';
 import UserFeed from './UserFeed';
+// import { BrowserRouter as Redirect,Link } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
+
 // import { Link } from '@material-ui/core';
 // import SignUp from './SignUp';
 // import axios from 'axios';
@@ -12,6 +15,7 @@ const base = 'http://localhost:4000';
 
 
 class LoginForm extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -91,7 +95,15 @@ class LoginForm extends Component {
     if (!loginSuccess) {
       console.log('Signup false');
       return (
+        
         <div className="container">
+          <BrowserRouter>
+          <div>
+            <Switch>
+              <Redirect from='/userfeed' to='login'></Redirect>
+            </Switch>
+          </div>
+        </BrowserRouter>
           <div className="box">
             <Card.Group>
               <Grid.Column>
@@ -121,15 +133,21 @@ class LoginForm extends Component {
             <div>
             </div>
           </div>
+          
         </div>
       )
     }
     else if (loginSuccess) {
       console.log("login true");
       return (
- 
-          <UserFeed user={this.state.user}></UserFeed>
-       
+        <BrowserRouter>
+          <div>
+            <Switch>
+              <Route exact path='/userfeed' render={() => <UserFeed user = {this.state.user}></UserFeed>}></Route>
+              <Redirect from='/login' to='userfeed'></Redirect>
+            </Switch>
+          </div>
+        </BrowserRouter>
       )
     }
   }

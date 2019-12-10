@@ -180,11 +180,7 @@ class SignUp extends Component {
           </div>
         </div>
       )
-    } else {
-      return (
-        <LoginForm />
-      );
-    }
+    } 
   }
 
   render() {

@@ -214,7 +214,6 @@ class UserFeed extends Component {
         <div>
           <AppBarfile user={this.state.user} />
           <AddPost user={this.state.user}></AddPost>
-          {/* <ProfileInfo user={this.state.user}></ProfileInfo> */}
         </div>
         <this.CardExampleGroups />
 
