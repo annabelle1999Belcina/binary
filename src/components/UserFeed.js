@@ -5,17 +5,12 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import Avatar from '@material-ui/core/Avatar';
 import { ListItem, List, ListItemText } from "@material-ui/core";
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Grid from '@material-ui/core/Grid';
-import AppBarfile from './AppBarfile';
 import TextField from '@material-ui/core/TextField';
-import AddPost from './AddPost';
 import axios from 'axios';
 import { Button, Header, Image, Modal, } from 'semantic-ui-react'
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
@@ -146,7 +141,7 @@ class UserFeed extends Component {
   //     }
   // }
   AppBar = () => {
-    const classes = useStyles();
+    const classes = usestyles();
 
     return (
       <div className={classes.root}>

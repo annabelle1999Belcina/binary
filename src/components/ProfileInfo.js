@@ -3,7 +3,11 @@ import { Button, Header, Image, Modal, Card, } from 'semantic-ui-react'
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
+import Toolbar from '@material-ui/core/Toolbar';
+import AppBar from '@material-ui/core/AppBar';
+import AddPost from './AddPost';
 const base = 'http://localhost:4000';
+
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -13,6 +17,17 @@ const useStyles = makeStyles(theme => ({
         },
     },
 }));
+const usestyles = makeStyles(theme => ({
+    root: {
+      flexGrow: 1,
+    },
+    menuButton: {
+      marginRight: theme.spacing(2),
+    },
+    title: {
+      flexGrow: 1,
+    },
+  }));
 class ProfileInfo extends Component {
     constructor(props) {
         super(props);
@@ -67,6 +82,21 @@ class ProfileInfo extends Component {
             })
     }
 
+    AppBar = () => {
+        const classes = usestyles();
+    
+        return (
+          <div className={classes.root}>
+            <AppBar position="static">
+              <Toolbar>
+                <Button onClick={e => { this.toAccountClicked(e) }} color="inherit">Account</Button>
+                <Button onClick={e => { this.logoutClicked(e) }} color="inherit">Logout</Button>
+              </Toolbar>
+            </AppBar>
+          </div>
+        );
+      }
+
     ProfileInfoCard = () => (
         <Card style={{ fontSize: "100%" }}>
             <Card.Content>About {this.state.user.firstName} {this.state.user.lastName}</Card.Content>
@@ -114,6 +144,8 @@ class ProfileInfo extends Component {
     render() {
         return (
             <div>
+                <this.AppBar/>
+                <AddPost user = {this.state.user}></AddPost>
                 <this.ProfileInfoCard />
             </div>
         );
