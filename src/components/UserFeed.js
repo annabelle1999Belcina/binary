@@ -18,6 +18,13 @@ import TextField from '@material-ui/core/TextField';
 import AddPost from './AddPost';
 import axios from 'axios';
 import { Button, Header, Image, Modal, } from 'semantic-ui-react'
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
+import ProfileInfo from './ProfileInfo';
+import LoginForm from './LoginForm';
+import Toolbar from '@material-ui/core/Toolbar';
+import MenuIcon from '@material-ui/icons/Menu';
+import AppBar from '@material-ui/core/AppBar';
+
 const base = 'http://localhost:4000';
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -44,6 +51,17 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
   },
 }));
+const usestyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+  },
+}));
 
 
 class UserFeed extends Component {
@@ -52,11 +70,13 @@ class UserFeed extends Component {
     this.state = {
       user: this.props.user,
       comment: "",
+      updated: false,
+      like: 0,
+      toAccount: false,
+      logout: false,
       posts: [
         {
-          user: [{
-            
-          }],
+          userName: "",
           foodName: "Spaghetti",
           description: "This is my first post with more content inside",
           image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRvZYf1rcr0NygtykZZiygTwzbRMbPdCiNJAg78EwZHYoJhqIoi",
@@ -74,6 +94,16 @@ class UserFeed extends Component {
     }
   }
 
+  toAccountClicked = (e) => {
+    e.preventDefault();
+    console.log("on account")
+    this.setState({ toAccount: true });
+  }
+  logoutClicked = (e) => {
+    e.preventDefault();
+    console.log("logout")
+    this.setState({ toAccount: true });
+  }
   componentDidMount() {
     // const datas = [];
     axios.get(`${base}/posts/retrieve`)
@@ -105,11 +135,42 @@ class UserFeed extends Component {
         console.log(error)
       })
   }
+
+  // handleLiker = () => {
+  //     if(!this.state.updated) {
+  //       console.log("Liked")
+  //       this.setState((prevState, props) => {
+  //           this.setState({likes: prevState.likes + 1})
+  //           this.setState({updated: true})
+  //       });
+  //     }
+  // }
+  AppBar = () => {
+    const classes = useStyles();
+
+    return (
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" className={classes.title}>
+              News
+    </Typography>
+            <Button onClick={e => { this.toAccountClicked(e) }} color="inherit">Account</Button>
+            <Button onClick={e => { this.logoutClicked(e) }} color="inherit">Logout</Button>
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
+  }
   CardExampleGroups = () => {
 
     console.log(this.state.posts)
-    
+
     return (
+
       <Grid container spacing={3}>
         {this.state.posts.map(post => (
           <Grid item xs={12} sm={4}>
@@ -119,22 +180,10 @@ class UserFeed extends Component {
               marginLeft: "10px",
               marginTop: "10px"
             }}>
-              
-              <CardHeader
-                avatar={
-                  <Avatar aria-label="recipe" style={{ backgroundColor: red[500] }}>
-                    Y {post.user.userName}
-                                  </Avatar>
-                }
-                action={
-                  <IconButton aria-label="settings">
-                    <MoreVertIcon />
-                  </IconButton>
-                }
-                
 
+              <CardHeader
                 title={post.foodName}
-                subheader={post.postDate}
+                subheader={post.userName}
               />
               <CardMedia
                 style={{
@@ -148,9 +197,11 @@ class UserFeed extends Component {
                 <Typography variant="body2" color="textSecondary" component="p">
                   {post.description}</Typography>
                 <CardActions>
-                  <IconButton aria-label="add to favorites">
+                  {/* Like Or Heart */}
+                  <IconButton aria-label="add to favorites" onClick={this.updateLikes}>
                     <FavoriteIcon />
                   </IconButton>
+                  <p>{this.state.like}</p>
                 </CardActions>
 
                 <Modal trigger={<center><Button style={{ backgroundColor: "orangered", width: "30%" }}>Show More</Button></center>}>
@@ -163,6 +214,8 @@ class UserFeed extends Component {
                       <p>{post.ingredients}</p>
                       <label>Procedure:</label>
                       <p >{post.procedure}</p>
+                      <label>Post Date:</label>
+                      <p >{post.postDate}</p>
                     </Modal.Description>
                   </Modal.Content>
                   <List style={useStyles.rootList}>
@@ -209,16 +262,44 @@ class UserFeed extends Component {
 
 
   render() {
-    return (
-      <div>
+    const { toAccount, logout } = this.state
+    if (toAccount === false && logout === false) {
+      return (
         <div>
-          <AppBarfile user={this.state.user} />
-          <AddPost user={this.state.user}></AddPost>
+          <this.AppBar />
+          <this.CardExampleGroups />
         </div>
-        <this.CardExampleGroups />
+      )
 
-      </div>
-    )
+    } else if (toAccount === true) {
+      return (
+        <BrowserRouter>
+          <div>
+            <Switch>
+              <Route exact path='/account' render={() => <ProfileInfo user={this.state.user}></ProfileInfo>}></Route>
+              <Redirect from='/userfeed' to='account'></Redirect>
+            </Switch>
+          </div>
+        </BrowserRouter>
+      )
+    } else if (logout === true) {
+      return (
+        <BrowserRouter>
+          <div>
+            <Switch>
+              <Route exact path='/login' render={() => <LoginForm></LoginForm>}></Route>
+              <Redirect from='/userfeed' to='login'></Redirect>
+            </Switch>
+          </div>
+        </BrowserRouter>
+      )
+    }
   }
 }
 export default UserFeed;
+
+
+
+
+
+

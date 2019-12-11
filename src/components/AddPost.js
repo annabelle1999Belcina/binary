@@ -32,7 +32,7 @@ class AddPost extends Component {
         // console.log('handle uploading-', this.state.file);
         e.preventDefault();
         var data = new FormData();
-        data.append('user', this.state.user);
+        data.append('userName', this.state.user.userName);
         data.append('foodName', this.state.foodName);
         data.append('description', this.state.description);
         data.append('image', this.state.file);

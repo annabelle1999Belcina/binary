@@ -6,6 +6,8 @@ import LoginForm from './LoginForm';
 import Message from '../elements/Message';
 import Error from '../elements/Error';
 import { REGISTRATION_MESSAGE, ERROR_IN_REGISTRATION } from '../MessageBundle';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
+
 // import { BrowserRouter as Link } from 'react-router-dom';
 
 
@@ -180,7 +182,19 @@ class SignUp extends Component {
           </div>
         </div>
       )
-    } 
+    }
+    else {
+      return (
+        <BrowserRouter>
+          <div>
+            <Switch>
+              <Route exact path='/login' render={() => <LoginForm></LoginForm>}></Route>
+              <Redirect from='/signup' to='login'></Redirect>
+            </Switch>
+          </div>
+        </BrowserRouter>
+      )
+    }
   }
 
   render() {
