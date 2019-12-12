@@ -5,7 +5,6 @@ import TextField from '@material-ui/core/TextField';
 import Toolbar from '@material-ui/core/Toolbar';
 import AppBar from '@material-ui/core/AppBar';
 import axios from 'axios';
-<<<<<<< HEAD
 import AddPost from './AddPost';
 import LoginForm from './LoginForm';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
@@ -25,11 +24,7 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 
 import Grid from '@material-ui/core/Grid';
 
-=======
-import Toolbar from '@material-ui/core/Toolbar';
-import AppBar from '@material-ui/core/AppBar';
-import AddPost from './AddPost';
->>>>>>> 81d9debf396bfa7c2c5860686df1160dfc04122a
+
 const base = 'http://localhost:4000';
 
 
@@ -41,7 +36,6 @@ const useStyles = makeStyles(theme => ({
         },
     },
 }));
-<<<<<<< HEAD
 
 const usestyles = makeStyles(theme => ({
     root: {
@@ -55,19 +49,7 @@ const usestyles = makeStyles(theme => ({
     },
 }));
 
-=======
-const usestyles = makeStyles(theme => ({
-    root: {
-      flexGrow: 1,
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
-    title: {
-      flexGrow: 1,
-    },
-  }));
->>>>>>> 81d9debf396bfa7c2c5860686df1160dfc04122a
+
 class ProfileInfo extends Component {
     constructor(props) {
         super(props);
@@ -174,7 +156,7 @@ class ProfileInfo extends Component {
 
     AppBar = () => {
         const classes = usestyles();
-<<<<<<< HEAD
+
 
         return (
             <div className={classes.root}>
@@ -188,20 +170,7 @@ class ProfileInfo extends Component {
             </div>
         );
     }
-=======
-    
-        return (
-          <div className={classes.root}>
-            <AppBar position="static">
-              <Toolbar>
-                <Button onClick={e => { this.toAccountClicked(e) }} color="inherit">Account</Button>
-                <Button onClick={e => { this.logoutClicked(e) }} color="inherit">Logout</Button>
-              </Toolbar>
-            </AppBar>
-          </div>
-        );
-      }
->>>>>>> 81d9debf396bfa7c2c5860686df1160dfc04122a
+
 
     ProfileInfoCard = () => (
         <Card style={{ fontSize: "100%" }}>
@@ -248,7 +217,7 @@ class ProfileInfo extends Component {
         console.log(this.state.posts)
 
         return (
-<<<<<<< HEAD
+
 
             <Grid container spacing={3}>
                 {this.state.posts.map(post => (
@@ -376,14 +345,7 @@ class ProfileInfo extends Component {
                 </BrowserRouter>
             )
         }
-=======
-            <div>
-                <this.AppBar/>
-                <AddPost user = {this.state.user}></AddPost>
-                <this.ProfileInfoCard />
-            </div>
-        );
->>>>>>> 81d9debf396bfa7c2c5860686df1160dfc04122a
+
     }
 }
 

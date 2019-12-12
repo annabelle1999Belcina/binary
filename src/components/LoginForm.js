@@ -4,14 +4,9 @@ import { Button, Form, Grid, Card } from 'semantic-ui-react'
 import axios from 'axios';
 import UserFeed from './UserFeed';
 import SignUp from './SignUp';
-// import { BrowserRouter as Redirect,Link } from 'react-router-dom';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 
-// import { Link } from '@material-ui/core';
-// import SignUp from './SignUp';
-// import axios from 'axios';
-// import SearchAppBar from './AppBar';
-// const base = 'http://localhost:4000';
+
 const base = 'http://localhost:4000';
 
 
@@ -48,14 +43,7 @@ class LoginForm extends Component {
       userName: this.state.userName,
       password: this.state.password
     };
-    // const data2 = {
-    //   userName: this.state.userName,
-    // };
 
-    // const user = await GetUser(data2);
-    // console.log("handle click test2")
-    // this.setState({ user: user.data2 })
-    // console.log(this.state.user);
 
     axios.post(`${base}/login`, data)
       .then(res => {
