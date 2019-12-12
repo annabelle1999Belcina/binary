@@ -24,7 +24,7 @@
   background-color:rgb(247, 238, 232);
   position: sticky;
   padding: 3%; 
-  margin-top: 5%
+  
 }
 .boxsign{
   background-image:linear-gradient(orangered, orange);
@@ -40,7 +40,7 @@
   background-image:("");
   padding: 5px 10px;
   box-shadow: 0 20px 20px rgba(0, 0, 0, 0.1);
-  float:left;
+  margin-left: 5%;
 }
 .profile{
   background-image:("");

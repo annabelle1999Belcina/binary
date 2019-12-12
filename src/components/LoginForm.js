@@ -3,6 +3,7 @@ import '../App.css'
 import { Button, Form, Grid, Card } from 'semantic-ui-react'
 import axios from 'axios';
 import UserFeed from './UserFeed';
+import SignUp from './SignUp';
 // import { BrowserRouter as Redirect,Link } from 'react-router-dom';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 
@@ -82,28 +83,22 @@ class LoginForm extends Component {
 
 
   }
-  signUp = () => {
-    if (this.state.toSignUp) {
-      console.log('Signup true');
-      this.setState({ toSignUp: true }, () => { this.props.history.push("/signup"); })
-
-    }
-  }
 
   login = () => {
     const { loginSuccess } = this.state;
     if (!loginSuccess) {
       console.log('Signup false');
       return (
-        
+
         <div className="container">
           <BrowserRouter>
-          <div>
-            <Switch>
-              <Redirect from='/userfeed' to='login'></Redirect>
-            </Switch>
-          </div>
-        </BrowserRouter>
+            <div>
+              <Switch>
+                <Redirect from='/userfeed' to='login'></Redirect>
+                <Redirect from='/account' to='login'></Redirect>
+              </Switch>
+            </div>
+          </BrowserRouter>
           <div className="box">
             <Card.Group>
               <Grid.Column>
@@ -133,7 +128,7 @@ class LoginForm extends Component {
             <div>
             </div>
           </div>
-          
+
         </div>
       )
     }
@@ -143,7 +138,7 @@ class LoginForm extends Component {
         <BrowserRouter>
           <div>
             <Switch>
-              <Route exact path='/userfeed' render={() => <UserFeed user = {this.state.user}></UserFeed>}></Route>
+              <Route exact path='/userfeed' render={() => <UserFeed user={this.state.user}></UserFeed>}></Route>
               <Redirect from='/login' to='userfeed'></Redirect>
             </Switch>
           </div>
@@ -153,12 +148,26 @@ class LoginForm extends Component {
   }
 
   render() {
-    // { ghfgh ? ygiyg : jgtytiy }
-    return (
-      <div>
-        {this.state.toSignUp ? this.signUp() : this.login()}
-      </div>
-    )
+    const { toSignUp } = this.state
+    if (toSignUp === false) {
+      return (
+        <div>
+          <this.login />
+        </div>
+      )
+
+    } else if (toSignUp === true) {
+      return (
+        <BrowserRouter>
+          <div>
+            <Switch>
+              <Route exact path='/signup' render={() => <SignUp ></SignUp>}></Route>
+              <Redirect from='/login' to='signup'></Redirect>
+            </Switch>
+          </div>
+        </BrowserRouter>
+      )
+    }
   }
 }
 export default LoginForm

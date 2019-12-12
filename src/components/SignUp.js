@@ -102,13 +102,6 @@ class SignUp extends Component {
 
   }
 
-  login = () => {
-    if (this.state.toLogin) {
-      console.log('Signup true');
-      this.setState({ toLogin: true }, () => { this.props.history.push("/login"); })
-
-    }
-  }
 
   signUp = () => {
     const { register, error, user_name_taken } = this.state;
@@ -198,11 +191,26 @@ class SignUp extends Component {
   }
 
   render() {
-    return (
-      <div>
-        {this.state.toLogin ? this.login() : this.signUp()}
-      </div>
-    )
+    const { toLogin } = this.state
+    if (toLogin === false) {
+      return (
+        <div>
+          <this.signUp />
+        </div>
+      )
+
+    } else if (toLogin === true) {
+      return (
+        <BrowserRouter>
+          <div>
+            <Switch>
+              <Route exact path='/login' render={() => <LoginForm ></LoginForm>}></Route>
+              <Redirect from='/signup' to='login'></Redirect>
+            </Switch>
+          </div>
+        </BrowserRouter>
+      )
+    }
   }
 }
 export default SignUp;

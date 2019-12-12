@@ -5,25 +5,22 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import Avatar from '@material-ui/core/Avatar';
 import { ListItem, List, ListItemText } from "@material-ui/core";
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Grid from '@material-ui/core/Grid';
-import AppBarfile from './AppBarfile';
 import TextField from '@material-ui/core/TextField';
-import AddPost from './AddPost';
 import axios from 'axios';
 import { Button, Header, Image, Modal, } from 'semantic-ui-react'
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 import ProfileInfo from './ProfileInfo';
 import LoginForm from './LoginForm';
 import Toolbar from '@material-ui/core/Toolbar';
-import MenuIcon from '@material-ui/icons/Menu';
 import AppBar from '@material-ui/core/AppBar';
+import CommentIcon from '@material-ui/icons/Comment';
+import EditIcon from '@material-ui/icons/Edit';
+
 
 const base = 'http://localhost:4000';
 const useStyles = makeStyles(theme => ({
@@ -102,7 +99,7 @@ class UserFeed extends Component {
   logoutClicked = (e) => {
     e.preventDefault();
     console.log("logout")
-    this.setState({ toAccount: true });
+    this.setState({ logout: true });
   }
   componentDidMount() {
     // const datas = [];
@@ -146,19 +143,14 @@ class UserFeed extends Component {
   //     }
   // }
   AppBar = () => {
-    const classes = useStyles();
+    const classes = usestyles();
 
     return (
       <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar position="static" style = {{backgroundColor: "orangered"}}>
           <Toolbar>
-            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" className={classes.title}>
-              News
-    </Typography>
-            <Button onClick={e => { this.toAccountClicked(e) }} color="inherit">Account</Button>
+            
+            <Button style = {{marginLeft: "80%"}} onClick={e => { this.toAccountClicked(e) }} color="inherit">Account</Button>
             <Button onClick={e => { this.logoutClicked(e) }} color="inherit">Logout</Button>
           </Toolbar>
         </AppBar>
@@ -171,12 +163,12 @@ class UserFeed extends Component {
 
     return (
 
-      <Grid container spacing={3}>
+      <Grid container spacing={4}>
         {this.state.posts.map(post => (
           <Grid item xs={12} sm={4}>
             <Card style={{
               maxWidth: 400,
-              backgroundColor: "pink",
+              backgroundColor: "#FAD0C3",
               marginLeft: "10px",
               marginTop: "10px"
             }}>
@@ -197,11 +189,6 @@ class UserFeed extends Component {
                 <Typography variant="body2" color="textSecondary" component="p">
                   {post.description}</Typography>
                 <CardActions>
-                  {/* Like Or Heart */}
-                  <IconButton aria-label="add to favorites" onClick={this.updateLikes}>
-                    <FavoriteIcon />
-                  </IconButton>
-                  <p>{this.state.like}</p>
                 </CardActions>
 
                 <Modal trigger={<center><Button style={{ backgroundColor: "orangered", width: "30%" }}>Show More</Button></center>}>
@@ -218,16 +205,17 @@ class UserFeed extends Component {
                       <p >{post.postDate}</p>
                     </Modal.Description>
                   </Modal.Content>
+                  <label style={{marginLeft: "3%", fontWeight: "bold"}}>Comments:</label>
                   <List style={useStyles.rootList}>
                     {post.comments.map(comment => (
-                      <ListItem>
-                        <ListItemText primary={comment.comment_from.firstName + " " + comment.comment_from.lastName} secondary={comment.comment} />
+                      <ListItem style={{background: "lightgray"}}>
+                        <CommentIcon style={{marginRight: "1%" }}/> <ListItemText primary={comment.comment_from.firstName + " " + comment.comment_from.lastName} secondary={comment.comment} />
                       </ListItem>
                     ))}
                   </List>
 
                   <center>
-                    <TextField id="outlined-basic" variant="outlined" style={{
+                  <EditIcon/> <TextField id="outlined-basic" variant="outlined" style={{
                       width: 200,
                       border: "20px",
                       height: "60px",
@@ -267,6 +255,7 @@ class UserFeed extends Component {
       return (
         <div>
           <this.AppBar />
+          
           <this.CardExampleGroups />
         </div>
       )
@@ -276,7 +265,7 @@ class UserFeed extends Component {
         <BrowserRouter>
           <div>
             <Switch>
-              <Route exact path='/account' render={() => <ProfileInfo user={this.state.user}></ProfileInfo>}></Route>
+              <Route exact path='/account' render={() => <ProfileInfo user={this.state.user} userName ={this.state.user.userName}></ProfileInfo>}></Route>
               <Redirect from='/userfeed' to='account'></Redirect>
             </Switch>
           </div>
